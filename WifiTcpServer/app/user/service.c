@@ -4,9 +4,14 @@
 #include "espconn.h"
 #include "mem.h"
 #include "gpio.h"
+#include "jshandle.h"
 
 struct espconn user_tcp_espconn;
 void ICACHE_FLASH_ATTR server_recv(void *arg, char *pdata, unsigned short len) {
+
+	char value[32] = "";
+
+	get_value(pdata,"light1",value);
     os_printf("收到PC发来的数据：%s", pdata);
     espconn_sent((struct espconn *) arg, "已经收到啦！", strlen("已经收到啦！"));
 
